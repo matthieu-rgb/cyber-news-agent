@@ -45,3 +45,5 @@ htmlcov/
 # Build output local
 out/
 dist_html/
+!data/db.py
+!data/__init__.py

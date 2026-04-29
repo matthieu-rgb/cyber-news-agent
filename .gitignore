@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtualenv
+.venv
+
+# Runtime data, ne jamais committer
+data/
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+age.txt
+
+# Logs
+*.log
+logs/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Tests / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Build output local
+out/
+dist_html/

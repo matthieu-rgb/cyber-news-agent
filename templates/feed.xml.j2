@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>Matthieu - Cybersecurite</title>
+        <link>{{ site_url }}/articles.html</link>
+        <atom:link href="{{ site_url }}/articles/feed.xml" rel="self" type="application/rss+xml" />
+        <description>Veille cyber, analyses techniques et reflexions de Matthieu Broquard sur la cybersecurite, le pentest automotive et l'AIS.</description>
+        <language>fr-FR</language>
+        <copyright>Matthieu Broquard</copyright>
+        <managingEditor>broquard.matthieu@gmail.com (Matthieu Broquard)</managingEditor>
+        <webMaster>broquard.matthieu@gmail.com (Matthieu Broquard)</webMaster>
+        <lastBuildDate>{{ build_date_rfc822 }}</lastBuildDate>
+        <generator>cyber-news-agent</generator>
+        <ttl>360</ttl>
+        {% for article in articles %}
+        <item>
+            <title>{{ article.title | e }}</title>
+            <link>{{ site_url }}/articles/{{ article.slug }}.html</link>
+            <guid isPermaLink="true">{{ site_url }}/articles/{{ article.slug }}.html</guid>
+            <pubDate>{{ article.date_rfc822 }}</pubDate>
+            <description>{{ article.summary | e }}</description>
+            {% for tag in article.tags %}<category>{{ tag | e }}</category>
+            {% endfor %}
+        </item>
+        {% endfor %}
+    </channel>
+</rss>

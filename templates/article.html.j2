@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ summary }}">
+    <meta name="author" content="Matthieu Broquard">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ summary }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://0xmatthieu.dev/articles/{{ slug }}.html">
+    <meta property="article:published_time" content="{{ date_iso }}">
+    <meta property="article:author" content="Matthieu Broquard">
+    {% for tag in tags %}<meta property="article:tag" content="{{ tag }}">
+    {% endfor %}
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ summary }}">
+
+    <title>{{ title }} | Matthieu</title>
+
+    <link rel="canonical" href="https://0xmatthieu.dev/articles/{{ slug }}.html">
+
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/article.css">
+
+    <link rel="alternate" type="application/rss+xml" title="Articles Matthieu - Cybersecurite" href="feed.xml">
+</head>
+<body>
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+    <header>
+        <nav>
+            <a href="../index.html" class="logo">&lt;/Matthieu&gt;</a>
+
+            <ul class="nav-links">
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="../competences.html">Compétences</a></li>
+                <li><a href="../projets.html">Projets</a></li>
+                <li><a href="../articles.html" class="active">Articles</a></li>
+                <li><a href="../cv.html">CV</a></li>
+                <li><a href="../contact.html">Contact</a></li>
+            </ul>
+
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/matthieu-broquard-727234156/" target="_blank" rel="noopener" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/matthieu-rgb" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://medium.com/@broquard.matthieu" target="_blank" rel="noopener" title="Medium"><i class="fab fa-medium"></i></a>
+                <a href="https://tryhackme.com/p/broquard.matthieu" target="_blank" rel="noopener" title="TryHackMe"><i class="fas fa-flag"></i></a>
+                <a href="https://app.hackthebox.com/users/2763619" target="_blank" rel="noopener" title="HackTheBox"><i class="fas fa-cube"></i></a>
+            </div>
+
+            <div class="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main class="article-page">
+        <div class="article-grid">
+            <article>
+                <header class="article-hero">
+                    {% if primary_source %}
+                    <div class="article-source-badge">
+                        <span>{{ primary_source }}</span>
+                    </div>
+                    {% endif %}
+
+                    <h1 class="article-title">{{ title }}</h1>
+
+                    {% if lead %}
+                    <p class="article-lead">{{ lead }}</p>
+                    {% endif %}
+
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <strong><time datetime="{{ date_iso }}">{{ date_human }}</time></strong>
+                        </span>
+                        <span class="article-meta-item">
+                            {{ reading_time }} min de lecture
+                        </span>
+                        {% if tags %}
+                        <span class="article-tags">
+                            {% for tag in tags %}<span class="article-tag">#{{ tag }}{% if not loop.last %} &middot;{% endif %}</span>{% endfor %}
+                        </span>
+                        {% endif %}
+                    </div>
+                </header>
+
+                <div class="article-prose">
+                    {{ content_html | safe }}
+                </div>
+
+                <footer class="article-footer">
+                    {% if sources %}
+                    <section class="article-sources">
+                        <div class="article-sources-title">Sources</div>
+                        <ol>
+                            {% for source in sources %}
+                            <li>
+                                <a href="{{ source.url }}" target="_blank" rel="noopener noreferrer">{{ source.title or source.url }}</a>
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </section>
+                    {% endif %}
+
+                    <div class="article-share">
+                        <span class="article-share-label">Partager</span>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://0xmatthieu.dev/articles/{{ slug }}.html" target="_blank" rel="noopener">LinkedIn</a>
+                        <a href="https://twitter.com/intent/tweet?text={{ title_encoded }}&url=https://0xmatthieu.dev/articles/{{ slug }}.html" target="_blank" rel="noopener">X</a>
+                        {% if medium_url %}<a href="{{ medium_url }}" target="_blank" rel="noopener">Medium</a>{% endif %}
+                    </div>
+
+                    <nav class="article-nav" aria-label="Navigation entre articles">
+                        {% if prev_article %}
+                        <a class="article-nav-link prev" href="{{ prev_article.slug }}.html">
+                            <div class="article-nav-direction">&larr; Article precedent</div>
+                            <div class="article-nav-title">{{ prev_article.title }}</div>
+                        </a>
+                        {% else %}
+                        <span class="article-nav-link prev disabled">
+                            <div class="article-nav-direction">&larr; Pas d'article precedent</div>
+                        </span>
+                        {% endif %}
+
+                        {% if next_article %}
+                        <a class="article-nav-link next" href="{{ next_article.slug }}.html">
+                            <div class="article-nav-direction">Article suivant &rarr;</div>
+                            <div class="article-nav-title">{{ next_article.title }}</div>
+                        </a>
+                        {% else %}
+                        <span class="article-nav-link next disabled">
+                            <div class="article-nav-direction">Pas d'article suivant &rarr;</div>
+                        </span>
+                        {% endif %}
+                    </nav>
+                </footer>
+            </article>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/article.js"></script>
+</body>
+</html>

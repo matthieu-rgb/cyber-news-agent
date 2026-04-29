@@ -85,7 +85,12 @@ def edit_article(markdown: str, iteration: int = 1) -> tuple[str, str]:
         body = re.sub(r"^VERDICT: REVISE\s*\n?", "", response, count=1).strip()
         # Extrait l'article du bloc ```markdown si present
         md_block = re.search(r"```markdown\s*\n(.*?)\n```", body, re.DOTALL)
-        revised = md_block.group(1).strip() if md_block else body
+        if md_block:
+            revised = md_block.group(1).strip()
+        else:
+            # Cherche le debut du frontmatter --- (ignore notes de critique avant)
+            fm_match = re.search(r"^---\s*$", body, re.MULTILINE)
+            revised = body[fm_match.start():].strip() if fm_match else body
         # Supprime les notes de relecture internes
         revised = re.sub(r"> \*\*Note de relecture[^\n]*\n[^\n]*\n\n?", "", revised)
         return "REVISE", revised
